@@ -1,0 +1,8 @@
+﻿{
+  "Name": "Lab",
+  "Domain": "aamaintweblab01.aa.com",
+  "DeviceServiceURL": "/open/Services/MMX/1.5/MmxDeviceWebService",
+  "UserCheckoutServiceURL": "/open/Services/MMX/1.5/MmxCheckoutWebservice",
+  "FileBrowserServiceURL": "/open/Services/MMX/1.5/MmxFileBrowserConfigWebService",
+  "Protocol": "http"
+}

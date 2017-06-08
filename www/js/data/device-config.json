@@ -1,0 +1,51 @@
+﻿[
+  {
+    "ConfigurationID": 1,
+    "DeviceTypeID": 13,
+    "DeviceTypeName": "AMT",
+    "FolderName": "Training",
+    "FolderPin": null
+  },
+  {
+    "ConfigurationID": 2,
+    "DeviceTypeID": 13,
+    "DeviceTypeName": "AMT",
+    "FolderName": "Download",
+    "FolderPin": "1234"
+  },
+  {
+    "ConfigurationID": 3,
+    "DeviceTypeID": 13,
+    "DeviceTypeName": "AMT",
+    "FolderName": "Folder A",
+    "FolderPin": null
+  },
+  {
+    "ConfigurationID": 4,
+    "DeviceTypeID": 13,
+    "DeviceTypeName": "AMT",
+    "FolderName": "Folder B",
+    "FolderPin": null
+  },
+  {
+    "ConfigurationID": 5,
+    "DeviceTypeID": 13,
+    "DeviceTypeName": "AMT",
+    "FolderName": "Folder C",
+    "FolderPin": "0098"
+  },
+  {
+    "ConfigurationID": 6,
+    "DeviceTypeID": 13,
+    "DeviceTypeName": "AMT",
+    "FolderName": "Folder D",
+    "FolderPin": "1256"
+  },
+  {
+    "ConfigurationID": 7,
+    "DeviceTypeID": 13,
+    "DeviceTypeName": "AMT",
+    "FolderName": "Folder E",
+    "FolderPin": null
+  }
+]

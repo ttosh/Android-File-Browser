@@ -1,0 +1,69 @@
+<ion-view title="Pin Code">
+  <ion-content class="center-vertical" ng-controller="FileSecurityController">
+    <div style="margin-top: 100px;">
+      <div class="row" style="text-align: center">
+        <div class="col col-10 col-offset-15" style="color: #ffffff; border-bottom: 1px solid white">
+          <input class="col col-120 col-offset-5" style="width: 60px; color: #ffffff; background-color: transparent; font-size: xx-large; text-align: center;" type="password" value="{{pinCode.substring(0, 1)}}" />
+        </div>
+        <div class="col col-10 col-offset-10" style="color: #ffffff; border-bottom: 1px solid white">
+          <input class="col col-120 col-offset-5" style="width: 60px; color: #ffffff; background-color: transparent; font-size: xx-large; text-align: center;" type="password" value="{{pinCode.substring(1, 2)}}" />
+        </div>
+        <div class="col col-10 col-offset-10" style="color: #ffffff; border-bottom: 1px solid white">
+          <input class="col col-120 col-offset-5" style="width: 60px; color: #ffffff; background-color: transparent; font-size: xx-large; text-align: center;" type="password" value='{{pinCode.substring(2, 3)}}' />
+        </div>
+        <div class="col col-10 col-offset-10" style="color: #ffffff; border-bottom: 1px solid white">
+          <input class="col col-120 col-offset-5" style="width: 60px; color: #ffffff; background-color: transparent; font-size: xx-large; text-align: center;" type="password" value="{{pinCode.substring(3, 4)}}" />
+        </div>
+      </div>
+    </div>
+    <div style="margin-top: 50px">
+      <div class="row">
+        <div class="col col-20 col-offset-20">
+          <button class="button button-light button-stretch" ng-click="addDigit(1)">1</button>
+        </div>
+        <div class="col col-20">
+          <button class="button button-light button-stretch" ng-click="addDigit(2)">2</button>
+        </div>
+        <div class="col col-20">
+          <button class="button button-light button-stretch" ng-click="addDigit(3)">3</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col-20 col-offset-20">
+          <button class="button button-light button-stretch" ng-click="addDigit(4)">4</button>
+        </div>
+        <div class="col col-20">
+          <button class="button button-light button-stretch" ng-click="addDigit(5)">5</button>
+        </div>
+        <div class="col col-20">
+          <button class="button button-light button-stretch" ng-click="addDigit(6)">6</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col-20 col-offset-20">
+          <button class="button button-light button-stretch" ng-click="addDigit(7)">7</button>
+        </div>
+        <div class="col col-20">
+          <button class="button button-light button-stretch" ng-click="addDigit(8)">8</button>
+        </div>
+        <div class="col col-20">
+          <button class="button button-light button-stretch" ng-click="addDigit(9)">9</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col-20 col-offset-20">
+          <button class="button button-light button-stretch"></button>
+        </div>
+        <div class="col col-20">
+          <button class="button button-light button-stretch" ng-click="addDigit(0)">0</button>
+        </div>
+        <div class="col col-20">
+          <button class="button icon ion-arrow-left-a button-light button-stretch" ng-click="deleteDigit()"></button>
+        </div>
+      </div>
+      <div ng-hide="pinCodeError.length === 0" style="margin-top: 35px; color: #ff0000; font-size: x-large; text-align: center;">
+        <i class="icon ion-android-alert"></i> {{pinCodeError}} &nbsp;&nbsp; <span style="color: #ffffff; font-size: xx-large" ng-click="clearPinCode();"><i class="icon ion-android-refresh"></i></span>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

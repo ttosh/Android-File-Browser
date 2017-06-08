@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <title>MX File Browser</title>
+  <meta charset="utf-8" />
+  <style>
+    [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+      display: none !important;
+    }
+  </style>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+
+  <!-- application styles -->
+  <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+
+  <!-- ionic/angularjs js -->
+  <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+  <!-- cordova & ngCordova scripts to be used -->
+  <script src="cordova.js"></script>
+  <script src="js/ng-cordova.js"></script>
+
+  <!-- application's entry point -->
+  <script src="js/app.js"></script>
+
+  <!-- application factories -->
+  <script src="js/factories/FileBrowserFactory.js"></script>
+  <script src="js/factories/CommonUtilityFactory.js"></script>
+  <script src="js/factories/LoggingFactory.js"></script>
+
+  <!-- application services -->
+  <script src="js/services/FileSecurityService.js"></script>
+  <script src="js/services/FileBrowserRestService.js"></script>
+
+  <!-- application controllers -->
+  <script src="js/controllers/FileSecurityController.js"></script>
+  <script src="js/controllers/FileBrowserController.js"></script>
+
+</head>
+<body ng-app="FileBrowserApp" data-ng-cloak>
+
+  <ion-pane>
+    <ion-content class="dark" ng-controller="FileBrowserController">
+
+      <ion-header-bar class="bar-dark">
+        <h1 class="title">File Browser</h1>
+      </ion-header-bar>
+
+      <div style="padding-top: 50px;"></div>
+      <div ng-class="{ 'list-div'   : isListView === true, 'grid-div' : isListView === false }">
+
+        <div style="float: left; margin-left: 20px; margin-top: 8px;">
+          <img src="img/icons/back.png" width="32" height="32" title="Back" ng-click="getContents(backButtonDirEntry)" ng-show="backButtonDirEntry !== null" />
+        </div>
+
+        <div style="float: right; margin-right: 20px; margin-top: 8px;">
+          <img src="img/icons/list.png" width="32" height="32" ng-click="toggleListView(true)" title="List View" />
+        </div>
+
+        <div style="float: right; margin-right: 25px; margin-top: 8px;">
+          <img src="img/icons/grid.png" width="32" height="32" ng-click="toggleListView(false)" title="Grid View" />
+        </div>
+
+      </div>
+
+      <div style="padding-top: 30px;"></div>
+      <div style="color: #ffffff; padding-top: 80px; font-size: 18px; text-align: center" ng-show="networkNotAccessable === true">
+        Cannot access network or folders not setup in the admin for this device type.
+      </div>
+
+      <div style="color: #ffffff; padding-top: 80px; font-size: 18px; text-align: center" ng-show="adminFoldersNotSetupForDeviceType">
+        No folders currently setup for this Device Type.
+      </div>
+
+      <div style="color: #ffffff; padding-top: 80px; font-size: 18px; text-align: center" ng-show="noFilesInCurrentSelectedFolder">
+        Currently no files in this folder.
+      </div>
+
+      <div ng-show="!isListView && !networkNotAccessable">
+        <div class="row" ng-repeat="dirEntry in files track by $index" ng-if="$index % 4 == 0" ng-show="!isListView">
+          <div ng-repeat="i in [$index, $index + 1, $index + 2, $index + 3]" ng-if="files[i] != null">
+
+            <div class="col dark dirEntry" ng-show="files[i].isDirectory">
+              <img src="img/icons/folder-full.png" width="64" height="64" ng-click="getContents(files[i])" title="Folder" /><br />
+              <span style="color: #ffffff; font-size: 18px;">{{files[i].name | limitTo: 10 }}{{files[i].name.length > 10 ? '...' : ''}}</span>
+            </div>
+
+            <div class="col dark dirEntry" ng-show="files[i].isFile">
+              <span ng-switch on="files[i].extension[0]">
+                <img ng-switch-when=".txt" src="img/icons/txt.png" width="64" height="64" ng-click="getContents(files[i])" title="{{files[i].name}}" ng-model="files[i].name" />
+                <img ng-switch-when=".pdf" src="img/icons/pdf.png" width="64" height="64" ng-click="getContents(files[i])" title="{{files[i].name}}" ng-model="files[i].name" />
+                <img ng-switch-when=".csv" src="img/icons/csv.png" width="64" height="64" ng-click="getContents(files[i])" title="{{files[i].name}}" ng-model="files[i].name" />
+                <img ng-switch-when=".doc" src="img/icons/doc.png" width="64" height="64" ng-click="getContents(files[i])" title="{{files[i].name}}" ng-model="files[i].name" />
+                <img ng-switch-when=".docx" src="img/icons/doc.png" width="64" height="64" ng-click="getContents(files[i])" title="{{files[i].name}}" ng-model="files[i].name" />
+                <img ng-switch-when=".xls" src="img/icons/xls.png" width="64" height="64" ng-click="getContents(files[i])" title="{{files[i].name}}" ng-model="files[i].name" />
+                <img ng-switch-when=".xlsx" src="img/icons/xls.png" width="64" height="64" ng-click="getContents(files[i])" title="{{files[i].name}}" ng-model="files[i].name" />
+                <img ng-switch-when=".html" src="img/icons/html.png" width="64" height="64" ng-click="getContents(files[i])" title="{{files[i].name}}" ng-model="files[i].name" />
+                <img ng-switch-when=".jpg" src="img/icons/jpg.png" width="64" height="64" ng-click="getContents(files[i])" title="{{files[i].name}}" ng-model="files[i].name" />
+                <img ng-switch-when=".png" src="img/icons/png.png" width="64" height="64" ng-click="getContents(files[i])" title="{{files[i].name}}" ng-model="files[i].name" />
+                <img ng-switch-when=".rtf" src="img/icons/rtf.png" width="64" height="64" ng-click="getContents(files[i])" title="{{files[i].name}}" ng-model="files[i].name" />
+                <img ng-switch-when=".xml" src="img/icons/xml.png" width="64" height="64" ng-click="getContents(files[i])" title="{{files[i].name}}" ng-model="files[i].name" />
+                <img ng-switch-when=".zip" src="img/icons/zip.png" width="64" height="64" ng-click="getContents(files[i])" title="{{files[i].name}}" ng-model="files[i].name" />
+                <img ng-switch-when=".ppt" src="img/icons/ppt.png" width="64" height="64" ng-click="getContents(files[i])" title="{{files[i].name}}" ng-model="files[i].name" />
+                <img ng-switch-when=".pptx" src="img/icons/ppt.png" width="64" height="64" ng-click="getContents(files[i])" title="{{files[i].name}}" ng-model="files[i].name" />
+                <img ng-switch-default src="img/icons/file.png" width="64" height="64" ng-click="getContents(files[i])" title="{{files[i].name}}" ng-model="files[i].name" />
+              </span>
+              <br />
+
+              <span style="color: #ffffff; font-size: 18px;">{{files[i].name | limitTo: 10 }}{{files[i].name.length > 10 ? '...' : ''}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div ng-show="isListView && !networkNotAccessable">
+        <div class="list">
+          <div ng-repeat="dirEntry in files track by $index" class="dark-bg">
+            <a class="item item-icon-left" href="#" ng-click="getContents(dirEntry)">
+              <i ng-show="dirEntry.isDirectory" class="icon ion-folder"></i>
+              <i ng-show="dirEntry.isFile" class="icon ion-document"></i>
+              <span>{{dirEntry.name}}</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </ion-content>
+  </ion-pane>
+</body>
+</html>
